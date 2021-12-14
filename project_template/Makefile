@@ -34,7 +34,7 @@ docker_build:
 
 # Создать и запустить контейнер с проектом
 docker_run:
-	docker run --rm -ti --name $(container_name) -v $(my_path)/deploy:$(WORK_DIR)/deploy  -p $(EXTERNAL_WEB_PORT):8000 $(image_name);
+	docker run --rm -ti --name $(container_name) -v $(my_path)/deploy:$(WORK_DIR)/deploy -p $(EXTERNAL_WEB_PORT):$(EXTERNAL_WEB_PORT) $(image_name);
 
 # Подключиться к контейнеру c web
 docker_exec_web:
