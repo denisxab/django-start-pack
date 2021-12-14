@@ -1,0 +1,11 @@
+/.idea
+/venv
+__env.env
+.dockerignore
+# Игнорируем логи gunicorn
+deploy/gunicorn/gunicorn_ass.log
+deploy/gunicorn/gunicorn_err.log
+# Игнорируем кеш `Django`
+{{ project_name }}/__cache
+{{ project_name }}/db.sqlite3
+/db/pg_data

@@ -1,0 +1,54 @@
+# Версия docker-compose
+version: "3"
+
+# Список контейнеров(сервисов)
+services:
+    
+  # Контейнер с базой данных
+  db:
+    # Имя контейнера
+    container_name: "{{ project_name }}-postgres-db"
+
+    # Перезапускать контейнер если он упал
+    restart: always
+
+    # Взять готовый образ `postgres`
+    image: "postgres"
+
+    # Зеркальная папка с БД
+    # Если вы хотите использовать данные из реальной БД(которая вне контейнера)
+    # То установите путь `./data/db:/var/lib/postgresql/data`
+    volumes:
+      - "${POSTGRES_VOLUMES}:/var/lib/postgresql/data"
+
+    # Взять переменные окружения
+    env_file: ${PATH_ENV}
+
+  # Даем любое название для WEB контейнера
+  {{ project_name }}_web:
+
+    # Имя контейнера
+    container_name: "{{ project_name }}-djnago-web"
+
+    # Найти Dockerfile(по указанному пути) и собрать контейнер
+    build:
+      context: .
+      # Передать аргумент с путем к рабочей деректории
+      args:
+        WORK_DIR: ${WORK_DIR}
+        NAME_PROJ: ${NAME_PROJ}
+
+    # Путь к файлу с переменными окружениями  (Эти переменные будут доступны во всем контейнере)
+    env_file: ${PATH_ENV}
+
+    # Зеркальная папка с Проектом
+    volumes:
+      - ".:${WORK_DIR}"
+
+    # Проброска портов для web приложения `<РеальныйПорт>:<ПортВ_Контейнере>`
+    ports:
+      - ${EXTERNAL_WEB_PORT}:8000
+
+    # Зависит от контейнеров(сервисов)
+    depends_on:
+      - db
