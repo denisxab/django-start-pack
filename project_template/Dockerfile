@@ -16,7 +16,7 @@ ENV \
     PYTHONUNBUFFERED=1
 
 ###  ПРОВЕРИТь КОПИРОВАНИЕ ФАЙЛОВ В КОНТЕЙНЕР
-# ЯВНО Скопировать файл зависемсотие в рабочую деректроию
+# ЯВНО Скопировать файл зависимости в рабочую деректроию
 COPY ${NAME_PROJ}/requirements.txt ${WORK_DIR}/requirements.txt
 # ЯВНО Скопировать исполняемый скрипт
 COPY deploy/entrypoint.sh ${WORK_DIR}/deploy/entrypoint.sh
