@@ -7,7 +7,7 @@ services:
   # Контейнер с базой данных
   db:
     # Имя контейнера
-    container_name: "{{ project_name }}-postgres-db"
+    container_name: "${NAME_PROJ}-postgres-db"
 
     # Перезапускать контейнер если он упал
     restart: always
@@ -25,10 +25,10 @@ services:
     env_file: ${PATH_ENV}
 
   # Даем любое название для WEB контейнера
-  {{ project_name }}_web:
+  web:
 
     # Имя контейнера
-    container_name: "{{ project_name }}-djnago-web"
+    container_name: "${NAME_PROJ}-djnago-web"
 
     # Найти Dockerfile(по указанному пути) и собрать контейнер
     build:

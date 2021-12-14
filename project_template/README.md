@@ -6,8 +6,6 @@
 ./venv/lib/python3.9/site-packages/django/conf/
 ```
 
-# Django
-
 Создать проект (`-e` указывает разширение файлов котрые нужно отренедерить как шаблон)
 
 ```bash
@@ -18,6 +16,14 @@ django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignor
 
 ```bash
 
+```
+
+# Django
+
+Запустить `WSGI` сервер `gunicorn`
+
+```bash
+gunicorn --chdir <ИмяПроекта> -c <АбсолютныйПуть>/deploy/gunicorn/gunicorn.conf.py
 ```
 
 # Docker
@@ -41,3 +47,9 @@ docker exec -ti  <ИмяКонтейнераПроекта> /bin/sh
 ```
 
 # Docker-compose
+
+Запустить контейнеры а после окончанию отчистить удалить их
+
+```bash
+sudo docker-compose --env-file <ПутьК_.env> up && sudo docker-compose --env-file  <ПутьК_.env> rm -fsv;
+```

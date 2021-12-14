@@ -12,14 +12,6 @@ image_name:=$(NAME_PROJ)_img
 container_name:=$(NAME_PROJ)_cont
 # Текущую директория
 my_path=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-
-
-# Имя проекта
-#NAME_PROJ={{ project_name }}
-# Порт 
-#EXTERNAL_WEB_PORT=
-# Рабочая директория проекта в контейнере
-#WORK_DIR:=/usr/src/$(NAME_PROJ)
 ####
 
 
@@ -42,7 +34,7 @@ docker_build:
 
 # Создать и запустить контейнер с проектом
 docker_run:
-	docker run --rm -ti --name $(container_name) -v $(my_path)/deploy:$(WORK_DIR)/deploy  -p 8080:8000 $(image_name);
+	docker run --rm -ti --name $(container_name) -v $(my_path)/deploy:$(WORK_DIR)/deploy  -p $(EXTERNAL_WEB_PORT):8000 $(image_name);
 
 # Подключиться к контейнеру c web
 docker_exec_web:
@@ -72,7 +64,7 @@ docker_compose_rm:
 ## Django
 # Запустить сервер `django`
 dj_run:
-	python $(NAME_PROJ)/manage.py runserver 0.0.0.0:8080;
+	python $(NAME_PROJ)/manage.py runserver 0.0.0.0:$(EXTERNAL_WEB_PORT);
 
 # Запустить сервер `gunicorn` с конфигурацией  `gunicorn.conf.py`
 dj_gunicorn_run:
@@ -80,7 +72,7 @@ dj_gunicorn_run:
 
 # Запустить тестовый сервер `gunicorn`
 dj_gunicorn_run_test:
-	gunicorn --chdir $(NAME_PROJ) -b 0.0.0.0:8080 --reload $(NAME_PROJ).wsgi:application;
+	gunicorn --chdir $(NAME_PROJ) -b 0.0.0.0:$(EXTERNAL_WEB_PORT) --reload $(NAME_PROJ).wsgi:application;
 
 # Создать миграции в БД
 dj_migrate:
