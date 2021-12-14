@@ -1,18 +1,25 @@
-## Переменные
-# Имя проекта
-proj_name={{ project_name }}
-# Имя контейнера c БД
-db:=$(proj_name)-postgres-db
 # Путь к переменным окружения
 env_path=__env.env
-# Рабочая директория проекта в контейнере
-work_dir:=/usr/src/$(proj_name)
+include $(env_path)
+export EXTERNAL_WEB_PORT, WORK_DIR, NAME_PROJ
+
+## Переменные
+# Имя контейнера c БД
+db:=$(NAME_PROJ)-postgres-db
 # Окончания имени образа
-image_name:=$(proj_name)_img
+image_name:=$(NAME_PROJ)_img
 # Окончания имени контейнера
-container_name:=$(proj_name)_cont
+container_name:=$(NAME_PROJ)_cont
 # Текущую директория
 my_path=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+
+
+# Имя проекта
+#NAME_PROJ={{ project_name }}
+# Порт 
+#EXTERNAL_WEB_PORT=
+# Рабочая директория проекта в контейнере
+#WORK_DIR:=/usr/src/$(NAME_PROJ)
 ####
 
 
@@ -31,19 +38,19 @@ docker_get_ip_web:
 
 # Создать образ проекта(Нудно находиться на одном уровне с `Dockerfile`)
 docker_build:
-	docker build --build-arg WORK_DIR=$(work_dir) --build-arg NAME_PROJ=$(proj_name) -t $(image_name) .;
+	docker build --build-arg WORK_DIR=$(WORK_DIR) --build-arg NAME_PROJ=$(NAME_PROJ) -t $(image_name) .;
 
 # Создать и запустить контейнер с проектом
 docker_run:
-	docker run --rm -ti --name $(container_name) -p 8080:8000 $(image_name);
+	docker run --rm -ti --name $(container_name) -v $(my_path)/deploy:$(WORK_DIR)/deploy  -p 8080:8000 $(image_name);
 
 # Подключиться к контейнеру c web
 docker_exec_web:
-	docker exec -ti $(db) /bin/sh;
+	docker exec -ti $(container_name) /bin/sh;
 
 # Подключиться к контейнеру c web
 docker_exec_db:
-	docker exec -ti $(container_name) /bin/sh;
+	docker exec -ti $(db) /bin/sh;
 
 # Подключиться к указанному контейнеру
 docker_exec:
@@ -62,31 +69,30 @@ docker_compose_rm:
 ####
 
 
-
 ## Django
 # Запустить сервер `django`
 dj_run:
-	python $(proj_name)/manage.py runserver 0.0.0.0:8080;
+	python $(NAME_PROJ)/manage.py runserver 0.0.0.0:8080;
 
 # Запустить сервер `gunicorn` с конфигурацией  `gunicorn.conf.py`
 dj_gunicorn_run:
-	gunicorn --chdir $(proj_name) -c $(my_path)/deploy/gunicorn/gunicorn.conf.py;
+	gunicorn --chdir $(NAME_PROJ) -c $(my_path)/deploy/gunicorn/gunicorn.conf.py;
 
 # Запустить тестовый сервер `gunicorn`
 dj_gunicorn_run_test:
-	gunicorn --chdir $(proj_name) -b 0.0.0.0:8080 --reload $(proj_name).wsgi:application;
+	gunicorn --chdir $(NAME_PROJ) -b 0.0.0.0:8080 --reload $(NAME_PROJ).wsgi:application;
 
 # Создать миграции в БД
 dj_migrate:
-	python $(proj_name)/manage.py migrate && python "$(proj_name)/manage.py" flush;
+	python $(NAME_PROJ)/manage.py migrate && python "$(NAME_PROJ)/manage.py" flush;
 
 # Загрузить данные в БД из дампа (позиционный аргумент - имя фала с дампом)
 dj_load:
-	python $(proj_name)/manage.py loaddata $(proj_name)/$(filter-out $@,$(MAKECMDGOALS));
+	python $(NAME_PROJ)/manage.py loaddata $(NAME_PROJ)/$(filter-out $@,$(MAKECMDGOALS));
 
 # Создать дамб БД
 dj_dump:
-	python $(proj_name)/manage.py dumpdata > $(proj_name)/dump.json;
+	python $(NAME_PROJ)/manage.py dumpdata > $(NAME_PROJ)/dump.json;
 
 # Создать проект (позиционный аргумент - имя проекта)
 dj_startproject:
