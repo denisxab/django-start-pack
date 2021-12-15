@@ -1,5 +1,5 @@
 const path = require("path");
-// Считваем переменные окружения из файла `npm install dotenv`
+// Считываем переменные окружения из файла `npm install dotenv`
 const envy = require('dotenv').config({ path: './__env.env' });
 //Получаем имя проекта из переменных окружения
 const ProjName = envy.parsed.NAME_PROJ;
