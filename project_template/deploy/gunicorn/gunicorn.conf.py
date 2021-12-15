@@ -26,9 +26,9 @@ PATH_ENV = "/".join(__file__.split('/')[:-3])
 # Чтение файла с переменными окружениями и добавление этих данных в ПО  `Python`
 read_env_file_and_set_from_venv(os.path.join(PATH_ENV, "__env.env"))
 # Слушать указанный ip адрес и порт  '<10.130.0.34:8001>'. Но лучше указать UDS сокет 'unix:/run/gunicorn.sock'
-bind = f"127.0.0.1:{os.environ.get('EXTERNAL_WEB_PORT')}"
+bind = f"0.0.0.0:{os.environ.get('EXTERNAL_WEB_PORT')}"
 # Путь к `WSGI` приложению  `ИмяГлавногоПриложения.wsgi:application`
-wsgi_app = 'conf.wsgi.application'
+wsgi_app = 'conf.wsgi:application'
 ROOT_DIR = "/".join(__file__.split('/')[:-1])
 
 ### Производительность

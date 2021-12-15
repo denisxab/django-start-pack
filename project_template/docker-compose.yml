@@ -7,13 +7,13 @@ services:
   # Контейнер с базой данных
   db:
     # Имя контейнера
-    container_name: "${NAME_PROJ}-postgres-db"
+    container_name: "${NAME_PROJ}-postgres-db_cont"
 
     # Перезапускать контейнер если он упал
     restart: always
 
     # Взять готовый образ `postgres`
-    image: "postgres"
+    image: "postgres:alpine"
 
     # Зеркальная папка с БД
     # Если вы хотите использовать данные из реальной БД(которая вне контейнера)
@@ -28,7 +28,7 @@ services:
   web:
 
     # Имя контейнера
-    container_name: "${NAME_PROJ}-djnago-web"
+    container_name: "${NAME_PROJ}-djnago-web_cont"
 
     # Найти Dockerfile(по указанному пути) и собрать контейнер
     build:
@@ -57,7 +57,7 @@ services:
   # Контейнер `Nginx`
   ngix:
     # Имя контейнера
-    container_name: "${NAME_PROJ}-nginx-web"
+    container_name: "${NAME_PROJ}-nginx_cont"
 
     # Путь для сбора образа
     build: ./deploy/nginx

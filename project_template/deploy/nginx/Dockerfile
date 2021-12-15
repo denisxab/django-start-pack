@@ -1,5 +1,5 @@
 # Беерм образ `nginx`
-FROM nginx
+FROM nginx:alpine
 # Удяляем стандарный конфиг
 RUN rm /etc/nginx/conf.d/default.conf
 # Копируем шаблон в контейнер

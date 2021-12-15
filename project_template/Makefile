@@ -4,12 +4,14 @@ include $(env_path)
 export EXTERNAL_WEB_PORT, WORK_DIR, NAME_PROJ
 
 ## Переменные
-# Имя контейнера c БД
-db:=$(NAME_PROJ)-postgres-db
-# Окончания имени образа
+# Имя контейнера БД
+db_container_name:=$(NAME_PROJ)-postgres-db_cont
+# Имя контейнера `nginx`
+nginx_container_name:=${NAME_PROJ}-nginx_cont
+# Имя контейнера `WEB`
+web_container_name:=$(NAME_PROJ)-djnago-web_cont
+# Имя образа `WEB`
 image_name:=$(NAME_PROJ)_img
-# Окончания имени контейнера
-container_name:=$(NAME_PROJ)_cont
 # Текущую директория
 my_path=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 ####
@@ -22,11 +24,11 @@ docker_get_ip:
 
 # Получить ip адрес БД
 docker_get_ip_db:
-	docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(db);
+	docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(db_container_name);
 
 # Получить ip адрес WEB приложения
 docker_get_ip_web:
-	docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(container_name);
+	docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(web_container_name);
 
 # Создать образ проекта(Нудно находиться на одном уровне с `Dockerfile`)
 docker_build:
@@ -34,15 +36,19 @@ docker_build:
 
 # Создать и запустить контейнер с проектом
 docker_run:
-	docker run --rm -ti --name $(container_name) -v $(my_path)/deploy:$(WORK_DIR)/deploy -p $(EXTERNAL_WEB_PORT):$(EXTERNAL_WEB_PORT) $(image_name);
+	docker run --rm -ti --name $(web_container_name) -v $(my_path)/deploy:$(WORK_DIR)/deploy -p $(EXTERNAL_WEB_PORT):$(EXTERNAL_WEB_PORT) $(image_name);
 
 # Подключиться к контейнеру c web
 docker_exec_web:
-	docker exec -ti $(container_name) /bin/sh;
+	docker exec -ti $(web_container_name) /bin/sh;
 
 # Подключиться к контейнеру c web
 docker_exec_db:
-	docker exec -ti $(db) /bin/sh;
+	docker exec -ti $(db_container_name) /bin/sh;
+
+# Подключиться к контейнеру c nginx
+docker_exec_nginx:
+	docker exec -ti $(nginx_container_name) /bin/sh;
 
 # Подключиться к указанному контейнеру
 docker_exec:
