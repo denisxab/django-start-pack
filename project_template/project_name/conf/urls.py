@@ -12,6 +12,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Маршрутизация `Api`
     path('api/v1/', api_v1.urls),
+    # Маршрутизация `React`
+    path('reat_test/', include('frontend.urls')),
     # path('', include('<main_app>.urls')),
 ]
 
