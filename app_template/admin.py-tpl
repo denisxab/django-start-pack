@@ -1,3 +1,82 @@
 from django.contrib import admin
 from .models import *
 
+@admin.register($NameModel$) # Регистрируем модель БД, с классом `admin.ModelAdmin`
+class $NameModel$Admin(admin.ModelAdmin):
+
+
+    ## Мы вставлять кастомные `html` в форму
+    #def get_html_photo(self, obj):
+    #
+    #   """
+    #   Метод для вывода миниатюр изображений.
+    #   После этого можно указывать в
+    #   - list_display=('get_html_photo', )
+    #   - readonly_fields=('get_html_photo', )
+    #   mark_safe - Явно пометьте строку как безопасную для целей вывода (HTML)
+    #   format_html - Можно форматировать строки
+    #   """
+    #    if obj.image_product:
+    #        return format_html(f"<img src='{obj.image_product.url}' style='object-fit: contain;' width=150 height=150>")
+    # Имя столбца в админ панели.
+    ##get_html_photo.short_description = "$Any5$"
+
+    # def set_publish(self, request, queryset):
+    #   """Метод - действие"""
+    #   row_update = queryset.update(is_publish=True)
+    #   # Сообщение в админ панель по окончанию дествия
+    #   self.message_user(request, f"Записей опубликовано: {row_update}")
+    #
+    # # Название действия в админ панели
+    # set_publish.short_description = "Опубликовать"
+    # # Выполнять это действия могу  только пользователи с правами на `редактирования` записи
+    # set_publish.allowed_permissions = ("change",)
+
+    # Имя столбца которые мы хотим видеть в админ панели.
+    list_display = ("$Any1$",)
+    # Указать имя столбца через которое можно перейти редактированию записи.
+    list_display_links = ("$Any2$",)
+    # Указать по каким столбцам можно делать поиск.
+    search_fields = ("$Any3$",)
+    # Столбцы которые можно редактировать не открывая всю запись.
+    list_editable = ("$Any4$",)
+    # Столбцы, по которым можно фильтровать записи.
+    list_filter = ("$Any4$",)
+
+    # Отобразить панель с удаление/созданием записи вверху редактирования запси.
+    save_on_top = True
+    # У нас будет кнопка "Сохранить как ноывый обьект", тоесть данные не сортутся из формы,
+    # при сохранение, и мы можем быстро создать похожий обьект.
+    save_as = True
+
+    # inlines = [,] # StackedInline/TabularInline Внешние формы, перечислять экземпляры
+    # actions = [""]  # Регистрируем действия
+
+    # prepopulated_fields = {"slug": ("name",)}  # Авто заполнение слага URL на основе столбца
+    # date_hierarchy = "$DataCreate$" # Поля, в котором содержится дата создания. Будет полоса хроналогии
+
+    # readonly_fields = ("",)  # Поля которые можно только смотреть, но не редактировать.
+    # Порядок отображения всех полей при редактировании записи, можно указывать картеж из имен
+    # тогда формы будут в одну строку. (По умолчанию каждая формы на новой строке)
+    # fields = ("",)
+
+    # form = ДополнительнаяМодельФормы
+    # autocomplete_fields = ("ПоляВнешнегоКлюча",) # Добавить Поиск по указзаным полям ForeignKey/ManyToManyField
+    # raw_id_fields = ("ПоляВнешнегоКлюча",) # Тоже что и `autocomplete_fields` только другой вид
+
+
+    def save_model(self, request, obj, form, change):
+        """
+        Этот метод вызывается при нажатии кнопки сохранить
+        """
+        super().save_model(request, obj, form, change)
+
+
+    def get_form(self, request, obj=None, **kwargs):
+        """
+        Вызывается при получении формы для редактирования записи
+        """
+        form = super().get_form(request, obj, **kwargs)
+        #form.base_fields[""]
+        return form
+

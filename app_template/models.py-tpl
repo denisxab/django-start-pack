@@ -1,3 +1,29 @@
 from django.db import models
+from django.urls import reverse
 
-# Create your models here.
+
+class $NameDataBase$(models.Model):
+    """
+    Место для столбцов таблицы. Создаются как статические атрибуты
+    """
+
+    def __str__(self):
+        """
+        Для отображение в текстовом виде для админ панели, и консоли.
+        """
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        """
+        Для получения ссылки записи в Html и отображение в админ панели.
+        """
+        ...
+        #return reverse("#", kwargs={"": self.pk})
+
+    class Meta:
+        """
+        Вспомогательный класс для админ панели.
+        """
+        verbose_name = "NameDataBase"  # Имя таблицы в единственном числе
+        verbose_name_plural = "NameDataBases"  # Имя таблицы во множественном числе
+        ordering = ["pk", ]  # Сортировать записи по указанным столбцам (можно указывать несколько столбцов)
