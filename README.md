@@ -15,6 +15,9 @@
 - `.env`
 - `gunicorn`
 - `Nginx`
+- `webpack.config.js` (Для автоматической сборки `React` при изменение файлов)
+- `npm`
+
 
 В разработки:
 
@@ -49,7 +52,7 @@ cp -r app_template ./venv/lib/python${py_version}/site-packages/django/conf/ &&
 rm -rf project_template app_template .git;
 # Показать результат `Django` шаблона
 tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/project_template &&
-tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/app_template 
+tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/app_template;
 ```
 
 # Использование
@@ -57,13 +60,13 @@ tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/app_template
 Создать проект (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
 
 ```bash
-django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore;
+django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore,json;
 ```
 
 Создать приложение (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
 
 ```bash
-django-admin startapp <ИмяПриложения> -e py,env,dockerignore,gitignore;
+django-admin startapp <ИмяПриложения> -e py,env,dockerignore,gitignore,json;
 ```
 
 # Особенности проекта
