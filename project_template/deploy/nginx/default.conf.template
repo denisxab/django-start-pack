@@ -19,6 +19,6 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header Host $http_host;
         proxy_redirect off;
-        proxy_pass http://name_web:${EXTERNAL_WEB_PORT};
+        proxy_pass http://web:${EXTERNAL_WEB_PORT};
     }
 }

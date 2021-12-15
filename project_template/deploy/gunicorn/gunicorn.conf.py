@@ -45,6 +45,6 @@ worker_connections = 1000
 # Авто перезагрузка сервера при изменении файлов проекта `Django`
 reload = True
 # Путь для вывода лог данных
-accesslog = f"{ROOT_DIR}/gunicorn_ass.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ
+#accesslog = f"{ROOT_DIR}/gunicorn_ass.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ
 # Путь для вывода ошибок
-errorlog = f"{ROOT_DIR}/gunicorn_err.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ
+#errorlog = f"{ROOT_DIR}/gunicorn_err.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ

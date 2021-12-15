@@ -4,7 +4,7 @@
 
 ---
 
-Поддерживается следующий набор технологий в шаблоне:
+Настроены следующий набор технологий в шаблоне:
 
 - `Django`
 - `Docker`
@@ -14,12 +14,11 @@
 - `PostgreSQL`
 - `.env`
 - `gunicorn`
-
+- `Nginx`
 
 В разработки:
 
 - `React`
-- `Nginx`
 
 # Установка
 
@@ -30,19 +29,27 @@
 Вот пример установки проекта, будем использовать виртуального окружения `venv`, и `Linux`.
 
 ```bash
+# Создаем папку со всем проектом, И переходим в неё
+dir="ИмяПроекта";
+mkdir ${dir} && cd ${dir};
 # Копируем этот репозиторий.
 git clone https://github.com/denisxab/django-start-pack.git .;
+# На всякий случай выходим из ВО если мы в нем находимся.
+deactivate;
 # Создаем виртуальное окружение, Актируем его, устанавливаем `Django`.
-python -m venv venv && . venv/bin/activate && pip install Django;
-# Создаем переменную с версий `Python`.
+python -m venv venv && . ./venv/bin/activate && pip install Django;
+# Создаем переменную с версий текущего ВО `Python`.
 py_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))');
-# Удаляем стандартные шаблоны `Django`.
+# Удаляем стандартные шаблон проекта и приложения `Django`.
 rm -rf ./venv/lib/python${py_version}/site-packages/django/conf/project_template ./venv/lib/python${py_version}/site-packages/django/conf/app_template;
 # Копируем шаблоны из репозитория в ВО.
-cp -r project_template ./venv/lib/python${py_version}/site-packages/django/conf/;
-cp -r app_template ./venv/lib/python${py_version}/site-packages/django/conf/;
+cp -r project_template ./venv/lib/python${py_version}/site-packages/django/conf/ &&
+cp -r app_template ./venv/lib/python${py_version}/site-packages/django/conf/ &&
 # Удаляем ненужные файлы/папки.
 rm -rf project_template app_template .git;
+# Показать результат `Django` шаблона
+tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/project_template &&
+tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/app_template 
 ```
 
 # Использование
