@@ -3,7 +3,7 @@ version: "3"
 
 # Список контейнеров(сервисов)
 services:
-    
+
   # Контейнер с базой данных
   db:
     # Имя контейнера
@@ -46,7 +46,6 @@ services:
       # - ".:${WORK_DIR}"
       - "./deploy:${WORK_DIR}/deploy"
 
-
     # Проброска портов для web приложения `<РеальныйПорт>:<ПортВ_Контейнере>`
     ports:
       - ${EXTERNAL_WEB_PORT}:${EXTERNAL_WEB_PORT}
@@ -54,3 +53,22 @@ services:
     # Зависит от контейнеров(сервисов)
     depends_on:
       - db
+
+  # Контейнер `Nginx`
+  ngix:
+    # Имя контейнера
+    container_name: "${NAME_PROJ}-nginx-web"
+
+    # Путь для сбора образа
+    build: ./deploy/nginx
+
+    # Проброска портов
+    ports:
+      - ${NGINX_PORT}:${NGINX_PORT}
+
+    # Путь к файлу с переменными окружениями  (Эти переменные будут доступны во всем контейнере)
+    env_file: ${PATH_ENV}
+
+    # Зависит от `web` приложения
+    depends_on:
+      - web
