@@ -5,7 +5,7 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from {{ project_name }} import settings
+from conf import settings
 from api.api_v1 import api as api_v1
 
 urlpatterns = [

@@ -15,9 +15,11 @@
 - `.env`
 - `gunicorn`
 
+
 В разработки:
 
 - `React`
+- `Nginx`
 
 # Установка
 
@@ -25,7 +27,7 @@
 
 ---
 
-Вот пример создания проекта, будем использовать виртуального окружения `venv`, и `Linux`.
+Вот пример установки проекта, будем использовать виртуального окружения `venv`, и `Linux`.
 
 ```bash
 # Копируем этот репозиторий.
@@ -48,13 +50,13 @@ rm -rf project_template app_template .git;
 Создать проект (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
 
 ```bash
-django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore,yml,yaml,sh;
+django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore;
 ```
 
 Создать приложение (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
 
 ```bash
-django-admin startapp <ИмяПриложения> -e py,env,dockerignore,gitignore,yml,yaml,sh;
+django-admin startapp <ИмяПриложения> -e py,env,dockerignore,gitignore;
 ```
 
 # Особенности проекта

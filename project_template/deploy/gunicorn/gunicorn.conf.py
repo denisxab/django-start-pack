@@ -1,4 +1,3 @@
-### Уточнения
 import os
 import re
 from pprint import pprint
@@ -20,20 +19,22 @@ def read_env_file_and_set_from_venv(file_name: str):
 	os.environ.update(res)
 	pprint(res)
 
+
+### Уточнения
 # Путь к файлу с переменными окружениями
 PATH_ENV = "/".join(__file__.split('/')[:-3])
-# Чтение файла с перемеными окружениями и добавлени этих данных в ПО  `Python`
+# Чтение файла с переменными окружениями и добавление этих данных в ПО  `Python`
 read_env_file_and_set_from_venv(os.path.join(PATH_ENV, "__env.env"))
 # Слушать указанный ip адрес и порт  '<10.130.0.34:8001>'. Но лучше указать UDS сокет 'unix:/run/gunicorn.sock'
 bind = f"127.0.0.1:{os.environ.get('EXTERNAL_WEB_PORT')}"
 # Путь к `WSGI` приложению  `ИмяГлавногоПриложения.wsgi:application`
-wsgi_app = f"{os.environ.get('NAME_PROJ')}.wsgi:application"
+wsgi_app = 'conf.wsgi.application'
 ROOT_DIR = "/".join(__file__.split('/')[:-1])
 
 ### Производительность
 # Количество рабочих процессов для обработки запросов. Оптимально установить количество процессов по формуле `2-(4xЯдерЦпу)`
 workers = 3
-# Этот параметр используется для ограничения количества заголовков в запросе до предотвратить DDOS-атаку.
+# Этот параметр используется для ограничения количества заголовков в запросе - предотвратить DDOS-атаку.
 limit_request_fields = 32000
 # Ограничьте допустимый размер поля заголовка HTTP-запроса.
 limit_request_field_size = 0

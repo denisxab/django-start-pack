@@ -49,7 +49,7 @@ services:
 
     # Проброска портов для web приложения `<РеальныйПорт>:<ПортВ_Контейнере>`
     ports:
-      - ${EXTERNAL_WEB_PORT}:8000
+      - ${EXTERNAL_WEB_PORT}:${EXTERNAL_WEB_PORT}
 
     # Зависит от контейнеров(сервисов)
     depends_on:

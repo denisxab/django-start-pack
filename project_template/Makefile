@@ -51,6 +51,10 @@ docker_exec:
 
 
 ## Docker-compose
+# Запустить образы контейнеров
+docker_compose_build:
+	sudo docker-compose --env-file $(env_path) build;
+
 # Запустить контейнеры а после окончанию отчистить удалить их
 docker_compose_up:
 	sudo docker-compose --env-file $(env_path) up && sudo docker-compose --env-file $(env_path) rm -fsv;
@@ -68,15 +72,15 @@ dj_run:
 
 # Запустить сервер `gunicorn` с конфигурацией  `gunicorn.conf.py`
 dj_gunicorn_run:
-	gunicorn --chdir $(NAME_PROJ) -c $(my_path)/deploy/gunicorn/gunicorn.conf.py;
+	gunicorn --chdir $(NAME_PROJ) --preload -c $(my_path)/deploy/gunicorn/gunicorn.conf.py;
 
 # Запустить тестовый сервер `gunicorn`
 dj_gunicorn_run_test:
-	gunicorn --chdir $(NAME_PROJ) -b 0.0.0.0:$(EXTERNAL_WEB_PORT) --reload $(NAME_PROJ).wsgi:application;
+	gunicorn --chdir $(NAME_PROJ) --preload -b 0.0.0.0:$(EXTERNAL_WEB_PORT) --reload conf.wsgi:application;
 
 # Создать миграции в БД
 dj_migrate:
-	python $(NAME_PROJ)/manage.py migrate && python "$(NAME_PROJ)/manage.py" flush;
+	python $(NAME_PROJ)/manage.py migrate && python $(NAME_PROJ)/manage.py flush;
 
 # Загрузить данные в БД из дампа (позиционный аргумент - имя фала с дампом)
 dj_load:
@@ -88,4 +92,4 @@ dj_dump:
 
 # Создать проект (позиционный аргумент - имя проекта)
 dj_startproject:
-	django-admin startproject $(filter-out $@,$(MAKECMDGOALS)); -e py,env,dockerignore,gitignore,yml,yaml,sh;
+	django-admin startproject $(filter-out $@,$(MAKECMDGOALS)); -e py,env,dockerignore,gitignore;

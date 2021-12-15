@@ -31,9 +31,9 @@ DEBUG = True # Если `True` будет отображать отладочн�
 ALLOWED_HOSTS = ['*']  # Список хостов который будет обслуживать Django
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")  # Секретный ключ для шифрования сессий
 
-WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+WSGI_APPLICATION = 'conf.wsgi.application'
 
-ROOT_URLCONF = '{{ project_name }}.urls' # Главный `URL` обработчик
+ROOT_URLCONF = 'conf.urls' # Главный `URL` обработчик
 #####
 
 

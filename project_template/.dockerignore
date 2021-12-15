@@ -1,6 +1,6 @@
 /.idea
 /venv
-__env.env
+/.git
 # Игнорируем логи gunicorn
 deploy/gunicorn/gunicorn_ass.log
 deploy/gunicorn/gunicorn_err.log
