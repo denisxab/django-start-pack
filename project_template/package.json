@@ -2,19 +2,14 @@
   "name": "{{ project_name }}",
   "version": "1.0.0>",
   "description": "...",
-  // Имя главного `js` скрипта по умолчанию `index.js`
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    // Зпускать серве с автокомпиляцией при изменние фалов `React`. Выполнить команду  `npm run dev`
     "dev": "webpack-dev-server --config webpack.config.js"
   },
-  // Информация о авторе
   "author": "...",
-  // Лицензия проекта
   "license": "ISC",
 
-  // Зависемости для разработки
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
@@ -25,10 +20,9 @@
     "webpack-dev-server": "^4.6.0"
   },
 
-  // Продакшин зависемости
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
     "dotenv": "^10.0.0"
   }
 }

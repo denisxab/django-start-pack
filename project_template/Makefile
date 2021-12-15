@@ -17,6 +17,12 @@ my_path=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 ####
 
 
+## Подготовить весь проект, Создать - Применить миграции
+init_proj: dj_migrate
+	npm install; 
+####
+
+
 ## Docker
 # Получить ip адрес указанного контейнера
 docker_get_ip:
@@ -86,11 +92,11 @@ dj_gunicorn_run_test:
 
 # Создать миграции в БД
 dj_migrate:
-	python $(NAME_PROJ)/manage.py migrate && python $(NAME_PROJ)/manage.py flush;
+	python $(NAME_PROJ)/manage.py makemigrations && python $(NAME_PROJ)/manage.py migrate
 
 # Загрузить данные в БД из дампа (позиционный аргумент - имя фала с дампом)
 dj_load:
-	python $(NAME_PROJ)/manage.py loaddata $(NAME_PROJ)/$(filter-out $@,$(MAKECMDGOALS));
+	python $(NAME_PROJ)/manage.py migrate && python $(NAME_PROJ)/manage.py flush && python $(NAME_PROJ)/manage.py loaddata $(NAME_PROJ)/$(filter-out $@,$(MAKECMDGOALS));
 
 # Создать дамб БД
 dj_dump:
@@ -99,3 +105,11 @@ dj_dump:
 # Создать проект (позиционный аргумент - имя проекта)
 dj_startproject:
 	django-admin startproject $(filter-out $@,$(MAKECMDGOALS)); -e py,env,dockerignore,gitignore;
+####
+
+
+## React
+# Запустить `webpack` (Для автамотической сборки проекта при изменнеи кода в `React`)
+webpack_run:
+	npm run dev
+
