@@ -9,16 +9,16 @@ module.exports = {
   // Режим работы
   mode: "development",
 
-  entry: [path.resolve(__dirname, `${ProjName}/frontend/src/index.js`)],
+  entry: [path.resolve(__dirname, `${ProjName}/frontend_react/src/index.js`)],
   output: {
     // куда помещаются скомпилированные файлы
     path: path.resolve(
       __dirname,
-      `${ProjName}/frontend/static/frontend/public/`
+      `${ProjName}/frontend_react/static/frontend_react/public/`
     ),
 
-    // 127.0.0.1/static/frontend/public/ откуда подаются файлы
-    publicPath: "/static/frontend/public/",
+    // 127.0.0.1/static/frontend_react/public/ откуда подаются файлы
+    publicPath: "/static/frontend_react/public/",
     filename: "main.js", // имя для импорта в `index.html`
   },
   module: {

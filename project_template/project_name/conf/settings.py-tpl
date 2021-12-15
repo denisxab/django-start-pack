@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # React
+    'frontend_react.apps.FrontendReactConfig',
 ]
 # Список используемых плагинов.
 MIDDLEWARE = [
