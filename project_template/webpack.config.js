@@ -5,6 +5,7 @@ const envy = require('dotenv').config({ path: './__env.env' });
 const ProjName = envy.parsed.NAME_PROJ;
 console.log(ProjName);
 
+
 module.exports = {
   // Режим работы
   mode: "development",
