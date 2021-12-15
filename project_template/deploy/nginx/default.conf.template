@@ -6,19 +6,23 @@ server {
 
     location = /favicon.ico { access_log off; log_not_found off; }
 
-
+    # Раздача статических файлов
     #location /static/ { 
     #        root ${WORK_DIR}/${NAME_PROJ}/${NAME_PROJ};
     #}
+    # Разадча медиа файлов
     #location /media/ {
     #        root ${WORK_DIR}/${NAME_PROJ}/${NAME_PROJ};
     #}
 
+    # Перенаправление на наш `WSGI` сервер
     location / {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header Host $http_host;
         proxy_redirect off;
+        # Настройка для контейнера с именем `web`
         proxy_pass http://web:${EXTERNAL_WEB_PORT};
+        # proxy_pass http://unix:ПутьК_UnixSocket;
     }
 }
