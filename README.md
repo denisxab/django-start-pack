@@ -19,6 +19,7 @@
 - `React` (Для рендеринга шаблонов)
 - `webpack.config.js` (Для автоматической сборки `React` при изменении файлов)
 - `.gitignore` && `.dockerignore`
+- Логирование `loguru`
 
 # Установка
 
@@ -58,13 +59,13 @@ tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/app_template;
 Создать проект (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
 
 ```bash
-django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore,json;
+django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore,json --template ./venv/lib/python${py_version}/site-packages/django/conf/project_template; 
 ```
 
 Создать приложение (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
 
 ```bash
-django-admin startapp <ИмяПриложения> -e py,env,dockerignore,gitignore,json;
+django-admin startapp <ИмяПриложения> -e py,env,dockerignore,gitignore,json --template ./venv/lib/python${py_version}/site-packages/django/conf/app_template; 
 ```
 
 ---

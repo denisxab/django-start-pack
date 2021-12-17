@@ -18,7 +18,7 @@ my_path=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 
 ## Подготовить весь проект, Создать - Применить миграции
-init_proj: dj_migrate
+init_proj: dj_init
 	npm install; 
 ####
 
@@ -89,6 +89,10 @@ dj_gunicorn_run:
 # Запустить тестовый сервер `gunicorn`
 dj_gunicorn_run_test:
 	gunicorn --chdir $(NAME_PROJ) --preload -b 0.0.0.0:$(EXTERNAL_WEB_PORT) --reload conf.wsgi:application;
+
+# Установить зависимости
+dj_init:
+	pip install -r  $(NAME_PROJ)/requirements.txt && make dj_migrate
 
 # Создать миграции в БД
 dj_migrate:
