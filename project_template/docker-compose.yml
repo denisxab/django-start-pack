@@ -30,6 +30,9 @@ services:
     # Имя контейнера
     container_name: "${NAME_PROJ}-djnago-web_cont"
 
+    # Перезапускать контейнер если он упал
+    restart: always
+    
     # Найти Dockerfile(по указанному пути) и собрать контейнер
     build:
       context: .
@@ -59,8 +62,21 @@ services:
     # Имя контейнера
     container_name: "${NAME_PROJ}-nginx_cont"
 
-    # Путь для сбора образа
-    build: ./deploy/nginx
+    # Перезапускать контейнер если он упал
+    restart: always
+
+    # Найти Dockerfile(по указанному пути) и собрать контейнер
+    build:
+      context: ./deploy/nginx
+      # Передать аргумент с путем к рабочей деректории
+      args:
+        WORK_DIR: ${WORK_DIR}/deploy/gunicorn
+
+    # Зеркальная папка с Проектом
+    volumes:
+      # - ".:${WORK_DIR}"
+      # Проксирование через `Unix Socket`
+      - "./deploy/gunicorn:${WORK_DIR}/deploy/gunicorn"
 
     # Проброска портов
     ports:

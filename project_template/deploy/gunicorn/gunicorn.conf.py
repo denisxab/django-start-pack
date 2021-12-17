@@ -23,13 +23,15 @@ def read_env_file_and_set_from_venv(file_name: str):
 ### Уточнения
 # Путь к файлу с переменными окружениями
 PATH_ENV = "/".join(__file__.split('/')[:-3])
-# Чтение файла с переменными окружения и добавление этих данных в ПО  `Python`
+# Чтение файла с переменными окружениями и добавление этих данных в ПО  `Python`
 read_env_file_and_set_from_venv(os.path.join(PATH_ENV, "__env.env"))
 # Слушать указанный ip адрес и порт  '<10.130.0.34:8001>'. Но лучше указать UDS сокет 'unix:/run/gunicorn.sock'
-bind = f"0.0.0.0:{os.environ.get('EXTERNAL_WEB_PORT')}"
+# bind = f"0.0.0.0:{os.environ.get('EXTERNAL_WEB_PORT')}"
+bind = f"unix:{os.environ.get('WORK_DIR')}/deploy/gunicorn/gunicorn.sock"
+print(bind)
 # Путь к `WSGI` приложению  `ИмяГлавногоПриложения.wsgi:application`
 wsgi_app = 'conf.wsgi:application'
-
+ROOT_DIR = "/".join(__file__.split('/')[:-1])
 
 ### Производительность
 # Количество рабочих процессов для обработки запросов. Оптимально установить количество процессов по формуле `2-(4xЯдерЦпу)`
@@ -44,9 +46,7 @@ worker_connections = 1000
 ### Другие
 # Авто перезагрузка сервера при изменении файлов проекта `Django`
 reload = True
-# Путь к папке `gunicorn`
-ROOT_DIR = "/".join(__file__.split('/')[:-1])
 # Путь для вывода лог данных
-#accesslog = f"{ROOT_DIR}/gunicorn_ass.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ
+# accesslog = f"{ROOT_DIR}/gunicorn_ass.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ
 # Путь для вывода ошибок
-#errorlog = f"{ROOT_DIR}/gunicorn_err.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ
+# errorlog = f"{ROOT_DIR}/gunicorn_err.log"  # !!! ПРОВЕРИТЬ ПУТИ ЛОГОВ

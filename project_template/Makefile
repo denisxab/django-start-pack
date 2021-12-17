@@ -82,9 +82,9 @@ docker_compose_rm:
 dj_run:
 	python $(NAME_PROJ)/manage.py runserver 0.0.0.0:$(EXTERNAL_WEB_PORT);
 
-# Запустить сервер `gunicorn` с конфигурацией  `gunicorn.conf.py`
+# Запустить сервер `gunicorn` с конфигурацией  `gunicorn.conf.py`. Но используем `IP`
 dj_gunicorn_run:
-	gunicorn --chdir $(NAME_PROJ) --preload -c $(my_path)/deploy/gunicorn/gunicorn.conf.py;
+	gunicorn --chdir $(NAME_PROJ) -b 0.0.0.0:$(EXTERNAL_WEB_PORT) --preload -c $(my_path)/deploy/gunicorn/gunicorn.conf.py;
 
 # Запустить тестовый сервер `gunicorn`
 dj_gunicorn_run_test:

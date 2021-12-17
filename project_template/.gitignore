@@ -4,9 +4,12 @@ __env.env
 # Игнорируем логи gunicorn
 deploy/gunicorn/gunicorn_ass.log
 deploy/gunicorn/gunicorn_err.log
+deploy/gunicorn/gunicorn.sock
 # Игнорируем кеш `Django`
 {{ project_name }}/__cache
 {{ project_name }}/db.sqlite3
 /db/pg_data
 # Игнорируем модули `npm`
 {{ project_name }}/node_modules
+# Для БД
+db/pg_data
