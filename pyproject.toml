@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "{{ project_name }}"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = ""
+readme = "{{ project_name }}/README.md"
+homepage = "https://github.com/______"
+repository = "https://github.com/______"
+keywords = ["<Спиок с ключевыми словами>"]
+exclude = [ "{{ project_name }}/.idea",
+			"{{ project_name }}/venv",
+			"{{ project_name }}/.git",
+			"{{ project_name }}/.gitignore",
+			"{{ project_name }}/__env.env",
+			"{{ project_name }}/node_modules",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.0"
+loguru = "^0.5.3"
+django-ninja = "^0.16.1"
+orjson = "^3.6.5"
+gunicorn = "^20.1.0"
+Pillow = "^8.4.0"
+psycopg2-binary = "^2.9.2"
+pytz = "^2021.3"
+
+[tool.poetry.dev-dependencies]
+django-debug-toolbar = "^3.2.4"
+django-cleanup = "^5.2.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
