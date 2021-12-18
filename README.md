@@ -51,8 +51,8 @@ cp -r app_template ./venv/lib/python${py_version}/site-packages/django/conf/ &&
 # Удаляем ненужные файлы/папки.
 rm -rf project_template app_template .git;
 # Показать результат `Django` шаблона
-tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/project_template &&
-tree ./venv/lib/pythonn${py_version}/site-packages/django/conf/app_template;
+tree ./venv/lib/python${py_version}/site-packages/django/conf/project_template &&
+tree ./venv/lib/python${py_version}/site-packages/django/conf/app_template;
 ```
 
 # Использование
