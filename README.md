@@ -6,22 +6,22 @@
 
 В шаблоне проекта настроены следующий технологий:
 
-- `Django`
-- `poetry`
-- Логирование `loguru`
-- `gunicorn` (В качестве `WSGI` сервера)
-- `Django Ninja` (В качестве `REST API`)
-- `Docker`
-- `Docker-compose`
-- `Nginx` (Через `Docker-compose`)
-- `PostgreSQL` (Через `Docker-compose`)
-- `.env` (Все важные настройки проекта хранятся в переменных окружения)
-- `Makefile` (Готовые стандартные команды для работы с проектом)
-- `npm`
-- `React` (Для рендеринга шаблонов) (`TypeScript`)
-- `webpack.config.js` (Для автоматической сборки `React` при изменении файлов)
-- `TypeScript`
-- `.gitignore` && `.dockerignore`
+-   `Django`
+-   `poetry`
+-   Логирование `loguru`
+-   `gunicorn` (В качестве `WSGI` сервера)
+-   `Django Ninja` (В качестве `REST API`)
+-   `Docker`
+-   `Docker-compose`
+-   `Nginx` (Через `Docker-compose`)
+-   `PostgreSQL` (Через `Docker-compose`)
+-   `.env` (Все важные настройки проекта хранятся в переменных окружения)
+-   `Makefile` (Готовые стандартные команды для работы с проектом)
+-   `npm`
+-   `React` (Для рендеринга шаблонов) (`TypeScript`)
+-   `webpack.config.js` (Для автоматической сборки `React` при изменении файлов)
+-   `TypeScript`
+-   `.gitignore` && `.dockerignore`
 
 # Установка
 
@@ -61,7 +61,7 @@ tree ./venv/lib/python${py_version}/site-packages/django/conf/app_template;
 Создать проект (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
 
 ```bash
-django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore,json --template ./venv/lib/python${py_version}/site-packages/django/conf/project_template;
+django-admin startproject <ИмяПроекта> -e py,env,dockerignore,gitignore,json,toml --template ./venv/lib/python${py_version}/site-packages/django/conf/project_template;
 ```
 
 Создать приложение (`-e` указывает расширение файлов которые нужно отрендерить как шаблон)
@@ -88,54 +88,53 @@ make dj_run;
 
 # Особенности созданного проекта через этот шаблон
 
-- Общее
+-   Общее
 
-    - Файл с переменными окружения называется `__env.env`
-    - Все настройки проекта хранят в файле с переменными окружения `./__env.env`. Его нужно держать в тайне, так как в
-      нём будут храниться приватные настройки для БД и `Django`. Он уже занесен в `.gitignore`
-    - Для быстрого и удобного исполнения команд есть `./Makfile`. Для исполнения этого файла необходимо иметь
-      программу `make`
-      . На `Ubuntu` можно скачать эту программу командой `sudo apt install make`.
-    - Для `poetry` в шаблоне `pyproject.toml` нужно указать имя проекта в ручную, так как он (более логично) находится
-      выше проекта, и поэтому не обрабатывается шаблонизатором  `Django`
+    -   Файл с переменными окружения называется `__env.env`
+    -   Все настройки проекта хранят в файле с переменными окружения `./__env.env`. Его нужно держать в тайне, так как в
+        нём будут храниться приватные настройки для БД и `Django`. Он уже занесен в `.gitignore`
+    -   Для быстрого и удобного исполнения команд есть `./Makfile`. Для исполнения этого файла необходимо иметь
+        программу `make`
+        . На `Ubuntu` можно скачать эту программу командой `sudo apt install make`.
+    -   Для `poetry` в шаблоне `pyproject.toml` нужно указать имя проекта в ручную, так как он (более логично) находится
+        выше проекта, и поэтому не обрабатывается шаблонизатором `Django`
 
-- `Django`
+-   `Django`
 
-    - Главное приложение теперь имеет название `conf`
-    - Кеш `Django` хранятся по пути `./<ИмяПроекта>/__cache.*`
-    - Логи `Django` хранятся по пути `./deploy/log_django/*`
+    -   Главное приложение теперь имеет название `conf`
+    -   Кеш `Django` хранятся по пути `./<ИмяПроекта>/__cache.*`
+    -   Логи `Django` хранятся по пути `./deploy/log_django/*`
 
-- `Docker`
+-   `Docker`
 
-    - Есть файл `./Dockerfile` для создания контейнера с проектом. `make docker_build` - собрать образ (Для правильной
-      сборки образа и контейнера прочитайте `Makfile` в нем уже реализованы все необходимые настройки).
-    - Есть файл `./docker-compose.yml` для создания контейнера с `PostgreSQL` и `nginx`. `make docker_compose_up` -
-      запустить контейнеры (Для правильной сборки образа и контейнера прочитайте `Makfile` в нем уже реализованы все
-      необходимые настройки).
-    - В папке `./deploy/gunicorn` хранятся настройки для запуска `gunicorn`, в этой же папке будут храниться логи
-      от `gunicorn`.
-    - `gunicorn` в `Docker` настроен прослушивать `Unix Socket` по пути `./deploy/gunicorn/gunicorn.sock`, поэтому
-      правильно запускать сервер через `Docker-compose` в котором настроен `Nginx`.
-    - В папке `db` будет храниться `volumes`(термин из `Docker`) для БД.
+    -   Есть файл `./Dockerfile` для создания контейнера с проектом. `make docker_build` - собрать образ (Для правильной
+        сборки образа и контейнера прочитайте `Makfile` в нем уже реализованы все необходимые настройки).
+    -   Есть файл `./docker-compose.yml` для создания контейнера с `PostgreSQL` и `nginx`. `make docker_compose_up` -
+        запустить контейнеры (Для правильной сборки образа и контейнера прочитайте `Makfile` в нем уже реализованы все
+        необходимые настройки).
+    -   В папке `./deploy/gunicorn` хранятся настройки для запуска `gunicorn`, в этой же папке будут храниться логи
+        от `gunicorn`.
+    -   `gunicorn` в `Docker` настроен прослушивать `Unix Socket` по пути `./deploy/gunicorn/gunicorn.sock`, поэтому
+        правильно запускать сервер через `Docker-compose` в котором настроен `Nginx`.
+    -   В папке `db` будет храниться `volumes`(термин из `Docker`) для БД.
 
-- `React`
+-   `React`
 
-    - В качестве шаблонизатор будем использовать `React` который храниться в приложение `frontend_react`. Главный
-      компонент
-      `React` находиться по пути `./ИмяПроекта/frontend_react/src/App.js`
-    - Скомпилированный код `webpack` храниться по
-      пути `./ИмяПроекта/frontend_react/static/frontend_react/public/main.js`
+    -   В качестве шаблонизатор будем использовать `React` который храниться в приложение `frontend_react`. Главный
+        компонент
+        `React` находиться по пути `./ИмяПроекта/frontend_react/src/App.js`
+    -   Скомпилированный код `webpack` храниться по
+        пути `./ИмяПроекта/frontend_react/static/frontend_react/public/main.js`
 
 # Особенности созданного приложения через этот шаблон
 
-- Есть папки `static`, `templates`, `templatetags`
-- Есть предварительные шаблоны для моделей и админ панели
+-   Есть папки `static`, `templates`, `templatetags`
+-   Есть предварительные шаблоны для моделей и админ панели
 
 # Файл которые нужно заполнять в ручную
 
-- `{{ project_name }}/package.json`
-- `{{ project_name }}/__env.env`
-- `{{ project_name }}/.dockerignore`
-- `{{ project_name }}/.gitignore`
-- `pyproject.toml`
-
+-   `{{ project_name }}/package.json`
+-   `{{ project_name }}/__env.env`
+-   `{{ project_name }}/.dockerignore`
+-   `{{ project_name }}/.gitignore`
+-   `pyproject.toml`
