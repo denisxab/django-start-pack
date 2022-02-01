@@ -5,6 +5,8 @@
 /deploy/gunicorn/gunicorn_ass.log
 /deploy/gunicorn/gunicorn_err.log
 /deploy/gunicorn/gunicorn.sock
+# Игнорируем логи Django
+/deploy/log_django/*
 # Игнорируем кеш `Django`
 /{{ project_name }}/__cache
 /{{ project_name }}/db.sqlite3

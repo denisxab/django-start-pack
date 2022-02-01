@@ -92,7 +92,7 @@ dj_gunicorn_run_test:
 
 # Установить зависимости
 dj_init:
-	pip install -r  $(NAME_PROJ)/requirements.txt && make dj_migrate
+	 poetry install && make dj_migrate
 
 # Создать миграции в БД
 dj_migrate:

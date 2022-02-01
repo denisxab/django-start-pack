@@ -1,0 +1,36 @@
+# Что будем делать:
+# cp - копировать
+cp:
+    # Путь к директории ОТКУДА копировать данные
+    infloder: '/home/denis/PycharmProjects/pythonProject1/'
+    # Файл и папки которые не копировать (Существуют в А но не в Б)
+    exclude_copy:
+        - poetry.lock
+        - project_template/package-lock.json
+        - project_template/project_name/frontend_react/static/frontend_react/public/
+        - project_template/node_modules
+        - project_template/deploy/log_django/error.log
+        - project_template/deploy/log_django/all.log
+        - project_template/deploy/log_django/trace.log
+        - project_template/project_name/db.sqlite3
+        - project_template/project_name/__cache
+        - project_template/__pycache__
+        - project_template/project_name/__pycache__
+        - project_template/project_name/frontend_react/__pycache__
+        - project_template/project_name/api/__pycache__
+        - project_template/project_name/conf/__pycache__
+    # Путь к директории КУДА копировать
+    outfolder: '/home/denis/prog/django-start-pack_2/'
+    # Файлы и папки которые не удалять (Существуют в Б)
+    exclude_delete:
+        - .git
+        - app_template
+    # Добавиться в `exclude_copy` и `exclude_delete`
+    exclude:
+        - pyproject.toml
+        - .idea
+        - venvs
+        - project_template/package.json
+        - project_template/.gitignore
+        - project_template/.dockerignore
+        - project_template/__env.env

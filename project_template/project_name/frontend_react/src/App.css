@@ -1,1 +1,7 @@
- 
+.main_text {
+    color: #4d543e;
+    text-align: center;
+}
+body{
+    background: #959f9f;
+}

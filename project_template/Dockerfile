@@ -26,7 +26,7 @@ COPY . .
 RUN \
     # Обновить `pip`
     pip install --upgrade pip;\
-    # Установить зависемости из файла
+    # Установить зависимости из файла
     pip install -r ${NAME_PROJ}/requirements.txt; \
     # Разрешить исполнять файл
     chmod +x deploy/entrypoint.sh; \

@@ -130,3 +130,12 @@ make dj_run;
 
 - Есть папки `static`, `templates`, `templatetags`
 - Есть предварительные шаблоны для моделей и админ панели
+
+# Файл которые нужно заполнять в ручную
+
+- `{{ project_name }}/package.json`
+- `{{ project_name }}/__env.env`
+- `{{ project_name }}/.dockerignore`
+- `{{ project_name }}/.gitignore`
+- `pyproject.toml`
+
