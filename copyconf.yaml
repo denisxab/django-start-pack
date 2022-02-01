@@ -12,7 +12,10 @@ cp:
         - project_template/deploy/log_django/error.log
         - project_template/deploy/log_django/all.log
         - project_template/deploy/log_django/trace.log
+        - 'project_template/deploy/gunicorn/gunicorn_ass.log'
+        - 'project_template/deploy/gunicorn/gunicorn_err.log'
         - project_template/project_name/db.sqlite3
+        - 'project_template/deploy/gunicorn/__pycache__'
         - project_template/project_name/__cache
         - project_template/__pycache__
         - project_template/project_name/__pycache__

@@ -1,12 +1,12 @@
-import os
+from os import path
 
-from project_template.helpful import read_env_file_and_set_from_venv, isDev, getEnv
+from helpful import read_env_file_and_set_from_venv, isDev, getEnv
 
 # УТОЧНЕНИЯ
 # Путь к файлу с переменными окружениями
 PATH_ENV = "/".join(__file__.split('/')[:-3])
 # Чтение файла с переменными окружениями и добавление этих данных в ПО  `Python`
-read_env_file_and_set_from_venv(os.path.join(PATH_ENV, "__env.env"))
+read_env_file_and_set_from_venv(path.join(PATH_ENV, "__env.env"))
 # Слушать указанный ip адрес и порт  '<10.130.0.34:8001>'. Но лучше указать UDS сокет 'unix:/run/gunicorn.sock'
 # bind = f"0.0.0.0:{getEnv('EXTERNAL_WEB_PORT')}"
 bind = f"unix:{getEnv('WORK_DIR')}/deploy/gunicorn/gunicorn.sock"

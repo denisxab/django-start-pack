@@ -2,12 +2,14 @@
 Глобальные настройки `Django` проекта
 """
 import os
+import sys
 from pathlib import Path
 from pprint import pformat
 
 from loguru import logger
 
-from project_template.helpful import read_env_file_and_set_from_venv, isDev, getEnv
+sys.path.insert(0, "/".join(sys.path[0].split('/')[:-1]))
+from helpful import read_env_file_and_set_from_venv, isDev, getEnv
 
 # Полный путь к Django приложению
 BASE_DIR = Path(__file__).resolve().parent.parent

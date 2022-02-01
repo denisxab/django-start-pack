@@ -108,7 +108,7 @@ dj_dump:
 
 # Создать проект (позиционный аргумент - имя проекта)
 dj_startproject:
-	django-admin startproject $(filter-out $@,$(MAKECMDGOALS)); -e py,env,dockerignore,gitignore;
+	django-admin startproject $(filter-out $@,$(MAKECMDGOALS)); -e py,env,dockerignore,gitignore,toml;
 ####
 
 
